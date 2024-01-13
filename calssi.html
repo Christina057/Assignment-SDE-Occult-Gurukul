@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .calculator {
+            background-color: #fff;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 300px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .display {
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: right;
+            padding: 20px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .keys {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 20px;
+        }
+
+        .button {
+            border-radius: 5px;
+            padding: 15px;
+            font-size: 1.2em;
+            border: 1px solid #ccc;
+            background-color: #e0e0e0;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #d1d1d1;
+        }
+
+        .special-button {
+            background-color: #f0f0f0;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+
+        .special-button:hover {
+            background-color: #d1d1d1;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="keys">
+            <input class="button" type="button" value="C" onclick="clean()" />
+            <input class="special-button" type="button" value="( )" onclick="insertBracket()" />
+            <input class="button" type="button" value="%" onclick="insert('%')" />
+            <input class="button" type="button" value="/" onclick="insert('/')" />
+            <input class="button" type="button" value="7" onclick="insert(7)" />
+            <input class="button" type="button" value="8" onclick="insert(8)" />
+            <input class="button" type="button" value="9" onclick="insert(9)" />
+            <input class="button" type="button" value="*" onclick="insert('*')" />
+            <input class="button" type="button" value="4" onclick="insert(4)" />
+            <input class="button" type="button" value="5" onclick="insert(5)" />
+            <input class="button" type="button" value="6" onclick="insert(6)" />
+            <input class="button" type="button" value="-" onclick="insert('-')" />
+            <input class="button" type="button" value="1" onclick="insert(1)" />
+            <input class="button" type="button" value="2" onclick="insert(2)" />
+            <input class="button" type="button" value="3" onclick="insert(3)" />
+            <input class="button" type="button" value="+" onclick="insert('+')" />
+            <input class="special-button" type="button" value="+/-" onclick="negate()" />
+            <input class="button" type="button" value="0" onclick="insert(0)" />
+            <input class="button" type="button" value="." onclick="insert('.')" />
+            <input class="special-button" type="button" value="=" onclick="equal()" />
+        </div>
+    </div>
+    <script>
+        var currentInput = '';
+
+        function clean() {
+            currentInput = '';
+            updateDisplay();
+        }
+
+        function insert(value) {
+            currentInput += value;
+            updateDisplay();
+        }
+
+        function insertBracket() {
+            currentInput += '(';
+            updateDisplay();
+        }
+
+        function insertPercentage() {
+            currentInput += '/100';
+            updateDisplay();
+        }
+
+        function negate() {
+            currentInput = '-' + currentInput;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            document.getElementById('display').textContent = currentInput || '0';
+        }
+
+        function equal() {
+            try {
+                currentInput = eval(currentInput).toString();
+            } catch (error) {
+                currentInput = 'Error';
+            }
+            updateDisplay();
+        }
+    </script>
+</body>
+</html>
